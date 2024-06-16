@@ -24,11 +24,13 @@ apt install python3-pip
 ### 3. Установить зависимости
 ```
 pip install -r requirements.txt
+
 ```
 
 ### 4. Запустить программу
 ```
 python typing_imitator.py
+
 ```
 
 ### 5. Первый запуск
