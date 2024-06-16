@@ -1,11 +1,22 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+# Путь к вашему виртуальному окружению
+venv_path = '/path/to/your/venv'
+
+# Активация виртуального окружения
+activate_this = os.path.join(venv_path, 'bin', 'activate_this.py')
+exec(open(activate_this).read(), {'__file__': activate_this})
+
+# Импорты после активации окружения
 import asyncio
 import random
 import json
 from telethon import TelegramClient, errors
 from telethon.tl.types import PeerUser
 import datetime
-from dotenv import load_dotenv, set_key
-import os
 
 # Цвета ANSI для красного, зеленого и сброса цвета
 RED = "\033[91m"
@@ -13,7 +24,7 @@ GREEN = "\033[92m"
 RESET = "\033[0m"
 
 # ASCII-арт "Typing Imitator"
-ASCII_ART = r"""
+ASCII_ART = """
  _______                _                 _____             _  _           _                
 |__   __|              (_)               |_   _|           (_)| |         | |               
    | |    _   _  _ __   _  _ __    __ _    | |   _ __ ___   _ | |_   __ _ | |_   ___   _ __ 
@@ -24,8 +35,8 @@ ASCII_ART = r"""
           |___/ |_|               |___/                                                     
 """
 
-# Имя файла для хранения конфигурации
-env_file = ".env"
+# Файл для хранения конфигурации
+config_file = "config.json"
 
 async def main():
     # Выводим ASCII-арт при запуске программы
@@ -115,20 +126,17 @@ async def handle_user(client, user_input, min_delay, max_delay):
         return
 
 def load_config():
-    # Загрузка конфигурации из файла .env
-    load_dotenv(env_file)
-    api_id = os.getenv("API_ID")
-    api_hash = os.getenv("API_HASH")
-
-    if api_id and api_hash:
-        return {
-            "API_ID": api_id,
-            "API_HASH": api_hash
-        }
-    return None
+    # Загрузка конфигурации из файла config.json
+    try:
+        with open(config_file, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return None
+    except json.JSONDecodeError:
+        return None
 
 async def setup_config():
-    # Запрос API ID и API Hash у пользователя, сохранение в .env
+    # Запрос API ID и API Hash у пользователя, сохранение в config.json
     while True:
         api_id = input("Введите API ID: ").strip()
         api_hash = input("Введите API Hash: ").strip()
@@ -139,15 +147,15 @@ async def setup_config():
                 "API_HASH": api_hash
             }
             
-            save_config(config)  # Сохранение конфигурации в файл .env
+            save_config(config)  # Сохранение конфигурации в файл
             return config
         else:
             print("Неверный формат API ID или API Hash. Пожалуйста, введите корректные значения.")
 
 def save_config(config):
-    # Сохранение конфигурации в файл .env
-    set_key(env_file, "API_ID", config["API_ID"])
-    set_key(env_file, "API_HASH", config["API_HASH"])
+    # Сохранение конфигурации в файл config.json
+    with open(config_file, "w") as f:
+        json.dump(config, f)
 
 async def get_delay_range():
     # Запрос диапазона задержки у пользователя
@@ -163,5 +171,9 @@ async def get_delay_range():
             print("Неверный формат ввода. Пожалуйста, введите числа через запятую.")
 
 if __name__ == "__main__":
-    # Запускаем основную функцию с использованием asyncio.run
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass  # Перехватываем KeyboardInterrupt для корректного завершения
+    except Exception as e:
+        print(f"{RED}Произошла ошибка: {e}{RESET}")
