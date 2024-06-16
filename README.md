@@ -23,7 +23,9 @@ apt install python3.12-venv
 
 ### 3. Установить зависимости
 ```
-pip install telethon
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
 
 ```
 
