@@ -1,1 +1,2 @@
-telethon
+telethon==1.23.0
+python-dotenv==0.19.5
