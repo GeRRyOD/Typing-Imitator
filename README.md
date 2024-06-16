@@ -17,10 +17,7 @@ cd typing-imitator
 ### 2. Установить Python
 
 ```
-sudo apt update
-
 sudo apt install python3
-
 
 ```
 
