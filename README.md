@@ -9,7 +9,7 @@
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/your_username/typing-imitator.git
+git clone https://github.com/GeRRyOD/typing-imitator.git
 cd typing-imitator
 ```
 
