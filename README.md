@@ -31,7 +31,7 @@ pip3 install -r requirements.txt
 
 ### 4. Запустить программу
 ```
-python typing_imitator.py
+python3 typing_imitator.py
 
 ```
 
