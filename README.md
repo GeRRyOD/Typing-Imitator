@@ -17,7 +17,7 @@ cd typing-imitator
 ### 2. Установить Python
 
 ```
-apt install python3-pip
+apt install python3.12-venv
 
 ```
 
