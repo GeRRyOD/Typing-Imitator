@@ -1,5 +1,9 @@
 # Typing Imitator
 
+
+### README in English available <a href="https://github.com/GeRRyOD/Typing-Imitator/blob/main/README.md" target="_blank">HERE</a>
+
+
 Программа Typing Imitator позволяет имитировать статус "печатает" в Telegram для указанных контактов, используя библиотеку Telethon.
 
 ## Установка и Запуск
