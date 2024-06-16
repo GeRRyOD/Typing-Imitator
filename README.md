@@ -23,7 +23,7 @@ apt install python3-pip
 
 ### 3. Установить зависимости
 ```
-pip install -r requirements.txt
+pip install telethon
 
 ```
 
